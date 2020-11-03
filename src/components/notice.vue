@@ -8,12 +8,12 @@
         </ul>
       </el-col>
       <el-col :span="8">
-        <ul class="infinite-list" v-infinite-scroll="loadclass" style="overflow:auto">
+        <ul class="infinite-list" v-infinite-scroll="" style="overflow:auto">
           <li>{{ user }}</li>
         </ul>
       </el-col>
       <el-col :span="8">
-        <ul class="infinite-list" v-infinite-scroll="loadclass" style="overflow:auto">
+        <ul class="infinite-list" v-infinite-scroll="" style="overflow:auto">
           <li>aaaaaaaaaaaaaaa</li>
         </ul>
       </el-col>

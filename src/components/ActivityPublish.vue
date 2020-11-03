@@ -110,7 +110,7 @@ name: "ActivityPublish",
       this.$axios.post('/api/act_info/',{username:this.user, name:this.ruleForm.name, region:this.ruleForm.region, date2:this.ruleForm.date2.toString(), type:this.ruleForm.type, level:this.ruleForm.level, desc:this.ruleForm.desc})
         .then((res) => {
         console.log(res)
-          if(res.data.code === 200){
+          if(res.data.code === 100){
             alert("活动创建成功")
           }
         }, () => {
