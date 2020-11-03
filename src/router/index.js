@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Welcome from '@/components/Welcome'
+import Main from '@/components/Main'
+import test from '@/components/test'
+import ActivityPublish from "../components/ActivityPublish";
+
 Vue.use(Router)
 
 // export default new Router({
@@ -19,20 +23,38 @@ var router = new Router({
   routes: [
     {
       path: '/',
-      name: 'welcome',
-      component: Welcome
-    },
-    {
-      path: '/auth',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/activity',
+      name: 'ActivityPublish',
+      component: ActivityPublish
+    },
+    {
+      path: '/main',
+      name: 'main',
+      component: Main,
+      meta: {
+        required: true
+      }
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     }
   ]
 })
 router.beforeEach((to, from, next)=> {
-  if (to.path === '/login') {
-    window.hideLogin = false;
+  if (to.path === '/') {
+    sessionStorage.removeItem("token")
   }
-  next();
-})
+  let token = sessionStorage.getItem("token");
+  if (!token && to.path !== "/"){
+    next({path: "/"});
+  }else{
+    next();
+  }
+});
 export default router;

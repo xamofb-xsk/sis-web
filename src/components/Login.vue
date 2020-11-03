@@ -1,71 +1,75 @@
 <template>
   <div id="Welcome">
     <div id="center">
-
-      <div id="login">
-        <div class="input-group input-group-lg">
-          <label>
-            <input type="text" class="form-control" v-model="username" placeholder="Username" aria-describedby="basic-addon1">
-          </label>
-        </div>
-        <div class="input-group input-group-lg">
-          <label>
-            <input type="text" class="form-control" v-model="password" placeholder="Password" aria-describedby="basic-addon1">
-          </label>
-        </div>
-        <div>
-          <table>
-            <tr>
-              <td>
-                <label>
-                  <input type="checkbox" style="vertical-align:middle;margin-top: 0;" value="记住用户名" name="username"/>记住用户名
-                </label>
-              </td>
-              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-              <td>
-                <label>
-                  <input type="checkbox" style="vertical-align:middle;margin-top: 0;margin-right: 0;" value="记住用户名" name="password">记住密码
-                </label>
-              </td>
-            </tr>
-          </table>
-
-          <div class="btn-group" role="group" aria-label="..." id="btn" style="margin-top:10px;">
-            <button type="button" class="btn btn-default" @click="onLogin">登录</button>
-          </div>
-        </div>
-
-      </div>
+      <el-container>
+        <el-header>Login</el-header>
+        <el-main>
+          <el-col :span="23">
+            <el-input v-model="username" placeholder="用户名" type="username"></el-input>
+            <el-input v-model="password" placeholder="密码" type="password"></el-input>
+          </el-col>
+        </el-main>
+        <el-footer>
+          <el-button type="primary" round @click="onLogin">登录</el-button>
+        </el-footer>
+      </el-container>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex"
+import { login } from "../api/http.js"
 export default {
   name: 'login',
+  computed:{
+    ...mapState(["token"], ["loginUserId"])
+  },
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      checkeduser: false,
+      checkedpass: false,
     }
   },
   methods:{
     onLogin(){
-      this.$axios.post('/api/auth/',{username:this.username, password:this.password}).then(function (res) {
-        console.log(res);}).catch(function (res) {
-        console.log(res);
-      });
+      // this.$axios.post('/api/auth/',{username:this.username, password:this.password})
+      //   .then((res) => {
+      //   console.log(res)
+      //     if(res.data.code === 200){
+      //       sessionStorage.setItem("token", res.data.token);
+      //       this.$store.commit("setUserInfo", res.data.username)
+      //       // this.$store.state.token = res.data.token;
+      //       // this.$store.state.loginUserId = this.username;
+      //       this.$router.replace('/main')
+      //     }
+      //   }, () => {
+      //       alert("用户名或密码错误")
+      //     }
+      //
+      //   )
+      login({
+        username: this.username,
+        password: this.password
+      }).then((res) => {
+          console.log(res)
+            if(res.data.code === 200){
+              // let token;
+              // token = res.data.token.toString();
+              sessionStorage.setItem("token", res.data.token);
+              this.$store.commit("setUserInfo", this.username)
+              // this.$store.state.token = res.data.token;
+              // this.$store.state.loginUserId = this.username;
+              this.$router.replace('/main')
+            }
+          }, () => {
+              alert("用户名或密码错误")
+            }
+
+          )
     },
-    post(){
-      let data = new URLSearchParams()
-      data.append('username', this.username)
-      data.append('password', this.password)
-      this.$axios
-        .post('http://127.0.0.1:8000/api/auth', data)
-        .then(function(response){
-          console.log(response)
-      })
-    }
 
   }
 }
@@ -75,12 +79,13 @@ export default {
 <style scoped>
 #Welcome{
   color:black;
+  text-align:center;
 }
 #center{
   text-align:center;
   border:2px solid black;
-  margin: 0 auto;
-  /*padding:10px 40px;*/
+  margin: 150px auto;
+  padding:20px;
   /*background-image: url("/assets/pic_57.jpg");*/
   width: 350px;
   height: 300px;
