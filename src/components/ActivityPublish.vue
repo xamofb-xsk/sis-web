@@ -1,18 +1,5 @@
 <template>
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-<!--    <el-form-item label="活动名称" required>-->
-<!--      <el-col :span="13">-->
-<!--        <el-form-item prop="name">-->
-<!--          <el-input v-model="ruleForm.name" style="width: 300px"></el-input>-->
-<!--        </el-form-item>-->
-<!--      </el-col>-->
-
-<!--      <el-col :span="1">-->
-<!--        <el-form-item label="活动地点" prop="region">-->
-<!--          <el-input v-model="ruleForm.region" style="width: 300px"></el-input>-->
-<!--        </el-form-item>-->
-<!--      </el-col>-->
-<!--    </el-form-item>-->
     <el-form-item label="活动名称" prop="name">
       <el-input v-model="ruleForm.name" style="width: 200px" name="name"></el-input>
     </el-form-item>
@@ -22,13 +9,13 @@
     <el-form-item label="活动时间" required>
       <el-col :span="11">
         <el-form-item prop="date1">
-          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 300px;"></el-date-picker>
+          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 300px;" format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
       </el-col>
       <el-col class="line" :span="3">&nbsp;</el-col>
       <el-col :span="11">
         <el-form-item prop="date2">
-          <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;"></el-time-picker>
+            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;" format='HH:mm:ss'></el-time-picker>
         </el-form-item>
       </el-col>
     </el-form-item>
@@ -107,7 +94,7 @@ name: "ActivityPublish",
   },
   methods: {
     submitForm(formName) {
-      this.$axios.post('/api/act_info/',{username:this.user, name:this.ruleForm.name, region:this.ruleForm.region, date2:this.ruleForm.date2.toString(), type:this.ruleForm.type, level:this.ruleForm.level, desc:this.ruleForm.desc})
+      this.$axios.post('/api/act_info/',{username:this.user, name:this.ruleForm.name, region:this.ruleForm.region, date1:this.ruleForm.date1.toString(),type:this.ruleForm.type, level:this.ruleForm.level, desc:this.ruleForm.desc})
         .then((res) => {
         console.log(res)
           if(res.data.code === 100){

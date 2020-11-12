@@ -11,7 +11,7 @@
           <template slot="title"><i class="el-icon-s-order"></i>活动</template>
           <el-menu-item-group>
             <el-menu-item index="2-1" name="push" @click="tabChange('ActivityPublish')">活动发布</el-menu-item>
-            <el-menu-item index="2-2">活动查询</el-menu-item>
+            <el-menu-item index="2-2" name="Inquire" @click="tabChange('ActivityInquire')">活动查询</el-menu-item>
             <el-menu-item index="2-3">我的活动</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -39,10 +39,12 @@
 import notice from "./notice";
 import { mapGetters} from "vuex";
 import ActivityPublish from "./ActivityPublish.vue"
+import ActivityInquire from "./ActivityInquire";
 export default {
   components: {
     ActivityPublish,
-    notice
+    notice,
+    ActivityInquire,
     },
   name: "Main.vue",
   data() {

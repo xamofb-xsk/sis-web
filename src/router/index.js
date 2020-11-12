@@ -26,11 +26,11 @@ var router = new Router({
       name: 'Login',
       component: Login
     },
-    {
-      path: '/activity',
-      name: 'ActivityPublish',
-      component: ActivityPublish
-    },
+    // {
+    //   path: '/activity',
+    //   name: 'ActivityPublish',
+    //   component: ActivityPublish
+    // },
     {
       path: '/main',
       name: 'main',

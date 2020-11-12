@@ -10,7 +10,7 @@
           </el-input>
         </el-col>
         <el-col :span="6" label="活动时间">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%"></el-date-picker>
+          <el-date-picker type="date" placeholder="选择日期" v-model="form.data" style="width: 100%"></el-date-picker>
         </el-col>
         <el-col :span="6" label="发布人">
           <el-input v-model="form.user" placeholder="发布人">
@@ -33,6 +33,23 @@
       </el-form-item>
     </el-form>
   </el-header>
+  <el-main>
+    <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+      <li v-for="i in count" class="infinite-list-item">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{ name[0] }}</span>
+            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          </div>
+          <div v-for="o in 4" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+          </div>
+        </el-card>
+
+      </li>
+    </ul>
+
+  </el-main>
 </div>
 </template>
 
@@ -42,11 +59,19 @@ export default {
 name: "ActivityInquire",
   data () {
   return {
+    count: 0,
+    counts: 0,
+    name: 0,
+    date: 0,
+    info: 0,
+    level: 0,
+    local: 0,
+    type: 0,
+    username : JSON.parse(sessionStorage.getItem('loginUserInfo')),
     form: {
-      username : JSON.parse(sessionStorage.getItem('loginUserInfo')),
       name: '',
       user: '',
-      date: '',
+      data: '',
     },
     options: [{
       value: '班级',
@@ -71,13 +96,31 @@ name: "ActivityInquire",
   }
   ,
   methods:{
+    load () {
+      if (this.count < this.counts){
+        this.count += 1
+        // alert(this.counts)
+      }
+    },
     submit(){
       if(this.value===''){
         alert('请选择级别')
       }else{
-        this.$axios.post()
+        this.$axios.post('/api/iquirdata/', {username: this.username, level: this.value, user: this.form.user, data: this.form.data.toString(), name: this.form.name})
+          .then((res) =>{
+            console.log(res)
+            if(res.data.code === 201){
+              this.count = res.data.counts
+              this.date = res.data.date
+              this.name = res.data.name
+              this.level = res.data.level
+              this.info = res.data.info
+              this.local = res.data.local
+              this.type = res.data.type
+            // 读取到的数据做成卡片形式发送到无限滚动
+            }
+          })
       }
-
     },
   }
 }
