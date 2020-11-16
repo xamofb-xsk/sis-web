@@ -12,7 +12,7 @@
           <el-menu-item-group>
             <el-menu-item index="2-1" name="push" @click="tabChange('ActivityPublish')">活动发布</el-menu-item>
             <el-menu-item index="2-2" name="Inquire" @click="tabChange('ActivityInquire')">活动查询</el-menu-item>
-            <el-menu-item index="2-3">我的活动</el-menu-item>
+            <el-menu-item index="2-3" name="MyActivity" @click="tabChange('MyActivity')">我的活动</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-menu-item index="3">
@@ -40,11 +40,13 @@ import notice from "./notice";
 import { mapGetters} from "vuex";
 import ActivityPublish from "./ActivityPublish.vue"
 import ActivityInquire from "./ActivityInquire";
+import MyActivity from "./MyActivity";
 export default {
   components: {
     ActivityPublish,
     notice,
     ActivityInquire,
+    MyActivity,
     },
   name: "Main.vue",
   data() {

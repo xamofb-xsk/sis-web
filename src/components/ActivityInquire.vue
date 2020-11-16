@@ -38,11 +38,23 @@
       <li v-for="i in count" class="infinite-list-item">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>{{ name[0] }}</span>
+            <span>{{'活动名称: ' + name[i - 1] }}</span>
             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
           </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{'列表内容 ' + o }}
+          <div class="text item">
+            {{'活动时间: ' + date[i - 1] }}
+          </div>
+          <div class="text item">
+            {{'活动等级: ' + level[i - 1] }}
+          </div>
+          <div class="text item">
+            {{'活动时间: ' + local[i - 1] }}
+          </div>
+          <div class="text item">
+            {{'活动类型: ' + type[i - 1] }}
+          </div>
+          <div class="text item">
+            {{'活动详情: \n' + info[i - 1] }}
           </div>
         </el-card>
 
