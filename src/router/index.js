@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Welcome from '@/components/Welcome'
 import Main from '@/components/Main'
-import test from '@/components/test'
-import ActivityPublish from "../components/ActivityPublish";
+import Main_Teacher from "../components/Main_Teacher";
 
 Vue.use(Router)
 
@@ -40,10 +38,11 @@ var router = new Router({
       }
     },
     {
-      path: '/test',
-      name: 'test',
-      component: test
+      path: '/manager',
+      name: 'main_teacher',
+      component: Main_Teacher,
     }
+    ,
   ]
 })
 router.beforeEach((to, from, next)=> {

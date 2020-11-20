@@ -62,7 +62,11 @@ export default {
               this.$store.commit("setUserInfo", this.username)
               // this.$store.state.token = res.data.token;
               // this.$store.state.loginUserId = this.username;
-              this.$router.replace('/main')
+              if(res.data.limit === 'Student'){
+                this.$router.replace('/main')
+              }else if(res.data.limit === 'Teacher'){
+                this.$router.replace('/manager')
+              }
             }
           }, () => {
               alert("用户名或密码错误")

@@ -25,6 +25,7 @@
         <el-radio label="文体活动" name="type"></el-radio>
         <el-radio label="讲座" name="type"></el-radio>
         <el-radio label="体育测试" name="type"></el-radio>
+        <el-radio label="社会实践" name="type"></el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="活动范围" prop="level">

@@ -10,27 +10,17 @@
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-s-order"></i>活动</template>
           <el-menu-item-group>
-<!--            <el-menu-item index="2-1" name="push" @click="tabChange('ActivityPublish')">活动发布</el-menu-item>-->
-            <el-menu-item index="2-2" name="Inquire" @click="tabChange('ActivityInquire')">活动查询</el-menu-item>
-            <el-menu-item index="2-3" name="MyActivity" @click="tabChange('MyActivity')">我的活动</el-menu-item>
+            <el-menu-item index="2-1" name="push" @click="tabChange('NoticePublish')">通知发布</el-menu-item>
+            <el-menu-item index="2-2" name="push" @click="tabChange('ActivityPublish')">活动发布</el-menu-item>
+            <el-menu-item index="2-3" name="Inquire" @click="tabChange('ActivityInquire')">活动查询</el-menu-item>
+            <el-menu-item index="2-4" name="MyActivity" @click="tabChange('')">活动审核</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-<!--        <el-submenu index="3">-->
-<!--          <template slot="title" @click="tabChange('Notice_get')"><i class="el-icon-s-order"></i>通知</template>-->
-<!--        </el-submenu>-->
-        <el-menu-item index="3" @click="tabChange('NoticeGet')">
-          <i class="el-icon-menu"></i>
-          <span slot="title">通知</span>
-        </el-menu-item>
-        <el-menu-item index="4" @click="tabChange('Litte')">
-          <i class="el-icon-menu"></i>
-          <span slot="title">小红本</span>
-        </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="3">
           <i class="el-icon-menu"></i>
           <span slot="title">文件</span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>
@@ -51,10 +41,8 @@ import { mapGetters} from "vuex";
 import ActivityPublish from "./ActivityPublish.vue"
 import ActivityInquire from "./ActivityInquire";
 import MyActivity from "./MyActivity";
-import NoticePublish from "./NoticePublish"
+import NoticePublish from "./NoticePublish";
 import Notice from "./Notice"
-import NoticeGet from "./Notice_get"
-import Litte from "./litteredbook"
 export default {
   components: {
     ActivityPublish,
@@ -62,8 +50,6 @@ export default {
     ActivityInquire,
     MyActivity,
     NoticePublish,
-    NoticeGet,
-    Litte,
     },
   name: "Main.vue",
   data() {
