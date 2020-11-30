@@ -27,10 +27,6 @@
           <span slot="title">小红本</span>
         </el-menu-item>
         <el-menu-item index="5">
-          <i class="el-icon-menu"></i>
-          <span slot="title">文件</span>
-        </el-menu-item>
-        <el-menu-item index="6">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>

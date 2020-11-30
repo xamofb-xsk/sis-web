@@ -5,7 +5,6 @@
         <el-form-item>
           <el-col :span="6" label="活动名称">
             <el-input v-model="form.name" placeholder="活动名称">
-
             </el-input>
           </el-col>
           <el-col :span="6" label="发布人">
