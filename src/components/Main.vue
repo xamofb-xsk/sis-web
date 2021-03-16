@@ -26,7 +26,11 @@
           <i class="el-icon-menu"></i>
           <span slot="title">小红本</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="5" @click="tabChange('Schedule')">
+          <i class="el-icon-menu"></i>
+          <span slot="title">课表</span>
+        </el-menu-item>
+        <el-menu-item index="6" @click="tabChange('About_Me')">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>
@@ -47,10 +51,12 @@ import { mapGetters} from "vuex";
 import ActivityPublish from "./ActivityPublish.vue"
 import ActivityInquire from "./ActivityInquire";
 import MyActivity from "./MyActivity";
-import NoticePublish from "./NoticePublish"
-import Notice from "./Notice"
-import NoticeGet from "./Notice_get"
-import Litte from "./litteredbook"
+import NoticePublish from "./NoticePublish";
+import Notice from "./Notice";
+import NoticeGet from "./Notice_get";
+import Litte from "./litteredbook";
+import Schedule from "./Schedule";
+import About_Me from "./About_Me"
 export default {
   components: {
     ActivityPublish,
@@ -60,6 +66,8 @@ export default {
     NoticePublish,
     NoticeGet,
     Litte,
+    Schedule,
+    About_Me
     },
   name: "Main.vue",
   data() {
