@@ -30,13 +30,17 @@
           <i class="el-icon-menu"></i>
           <span slot="title">课表</span>
         </el-menu-item>
-        <el-menu-item index="6" @click="tabChange('About_Me')">
+        <el-menu-item index="6" @click="tabChange('File')">
+          <i class="el-icon-menu"></i>
+          <span slot="title">文件</span>
+        </el-menu-item>
+        <el-menu-item index="7" @click="tabChange('About_Me')">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
-    <el-main style="height:100%">
+    <el-main style="height:100%;padding:0">
       <div :is="currentView">
 
       </div>
@@ -57,6 +61,7 @@ import NoticeGet from "./Notice_get";
 import Litte from "./litteredbook";
 import Schedule from "./Schedule";
 import About_Me from "./About_Me"
+import File from "./File";
 export default {
   components: {
     ActivityPublish,
@@ -67,7 +72,8 @@ export default {
     NoticeGet,
     Litte,
     Schedule,
-    About_Me
+    About_Me,
+    File
     },
   name: "Main.vue",
   data() {
