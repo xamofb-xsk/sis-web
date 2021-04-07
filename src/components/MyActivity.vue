@@ -3,7 +3,7 @@
   <el-main>
     <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
       <li v-for="i in count" class="infinite-list-item">
-        <el-card class="box-card">
+        <el-card class="box-card" >
           <div slot="header" class="clearfix">
             <span>{{'活动名称: ' + name[i - 1] }}</span>
 <!--            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
@@ -74,5 +74,7 @@ name: "MyActivity",
 </script>
 
 <style scoped>
-
+li{
+  list-style-type: none;
+}
 </style>
