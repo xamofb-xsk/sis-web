@@ -39,7 +39,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{'活动名称: ' + name[i - 1] }}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+<!--            <el-button style="float: right; padding: 3px 0"  type="text">操作按钮</el-button>-->
           </div>
           <div class="text item">
             {{'活动时间: ' + date[i - 1] }}
@@ -65,7 +65,7 @@
 </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import { mapGetters } from 'vuex'
 export default {
 name: "ActivityInquire",
@@ -130,6 +130,11 @@ name: "ActivityInquire",
               this.local = res.data.local
               this.type = res.data.type
             // 读取到的数据做成卡片形式发送到无限滚动
+            }
+            else if(res.data.code === 204 || res.data.code === 203)
+            {
+                this.count = 0
+                this.load()
             }
           })
       }

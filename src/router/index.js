@@ -38,7 +38,7 @@ var router = new Router({
       }
     },
     {
-      path: '/manager',
+        path: '/manager',
       name: 'main_teacher',
       component: Main_Teacher,
     }

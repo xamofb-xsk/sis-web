@@ -6,7 +6,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{'活动名称: ' + name[i - 1] }}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+<!--            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
           </div>
           <div class="text item">
             {{'活动时间: ' + date[i - 1] }}
