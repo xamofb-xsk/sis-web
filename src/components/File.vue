@@ -10,7 +10,8 @@
            <div slot="header" class="clearfix">
              <span>{{'文件名: ' + names[i - 1] }}</span>
              <el-button style="float: right; padding: 3px 0" type="text">删除</el-button>
-             <el-button style="float: right; padding: 3px 10px 3px 3px" type="text">下载</el-button>
+<!--             <el-button style="float: right; padding: 3px 10px 3px 3px" type="text" @click="Download(i)">下载</el-button>-->
+             <el-button style="float: right; padding: 3px 10px 3px 3px" type="text" @click="Download(i)">下载</el-button>
            </div>
            <div class="text item">
              {{'文件大小: ' + size[i - 1] }}
@@ -49,7 +50,8 @@ export default {
       createTime: [],
       use: 0,
       usesize: 0,
-      currentRowObject: []
+      currentRowObject: [],
+      id: []
     }
   }, computed: {
     ...mapGetters(["loginUserInfo"])
@@ -57,24 +59,58 @@ export default {
 ,
   methods: {
       load (){
-        this.$axios.post('/api/download/', {username: this.username}).then((res) =>{
+        this.$axios.post('/api/showdata/', {username: this.username}).then((res) =>{
         console.log(res)
           this.count = res.data.count;
           this.names = res.data.name;
           this.size = res.data.size;
-          // this.createTime = res.data.createtime;
+          this.createTime = res.data.createtime;
+          this.id = res.data.id
         })
     },
     uploadFileMethod(param) {
       const username = this.username;
       let fileObject = param.file;
       let formData = new FormData();
+      let name_file = param.file['name'];
+      console.log(param.file['size'])
+      let file_size = param.file['size'];
       formData.append("file", fileObject);
       formData.append("username", username)
+      formData.append("filename", name_file)
+      formData.append("file_size", file_size)
       this.$axios.post('api/upload/', formData)
         .then((res) => {
           console.log(res)
         })
+    },
+    Download(params){
+        console.log(params)
+      this.$axios.post('/api/download/', {username: this.username, id: params},{responseType:"blob"})
+          .then((res) =>{
+            console.log(res)
+            if(res){
+              console.log("download===", res);
+              const content = res.data;
+              const blob = new Blob([content]);
+              const fileName = res.headers['filename']; //获取文件名，无法获取则下载失败
+              if("download" in document.createElement("a")){
+                const elink = document.createElement("a");
+                elink.download = fileName;
+                elink.style.display = "none";
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                URL.revokeObjectURL(elink);
+                document.body.removeChild(elink);
+              }else{
+                navigator.msSaveBlob(blob, fileName)
+              }
+            }
+          })
+          .catch(()=>{
+            this.$message.error("下载失败")
+          })
     }
   }}
 
