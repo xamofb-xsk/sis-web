@@ -5,19 +5,18 @@
     </el-upload></el-header>
    <el-main>
      <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-       <li v-for="i in count" class="infinite-list-item">
+       <li v-for="(i, id) in id" class="infinite-list-item">
          <el-card class="box-card">
            <div slot="header" class="clearfix">
-             <span>{{'文件名: ' + names[i - 1] }}</span>
-             <el-button style="float: right; padding: 3px 0" type="text">删除</el-button>
-<!--             <el-button style="float: right; padding: 3px 10px 3px 3px" type="text" @click="Download(i)">下载</el-button>-->
+             <span>{{'文件名: ' + names[id] }}</span>
+             <el-button style="float: right; padding: 3px 0" type="text" @click="DeleteFile(i)">删除</el-button>
              <el-button style="float: right; padding: 3px 10px 3px 3px" type="text" @click="Download(i)">下载</el-button>
            </div>
            <div class="text item">
-             {{'文件大小: ' + size[i - 1] }}
+             {{'文件大小: ' + size[id] }}
            </div>
            <div class="text item">
-             {{'文件上传时间:' + createTime[i - 1] }}
+             {{'文件上传时间:' + createTime[id] }}
            </div>
          </el-card>
 
@@ -82,6 +81,10 @@ export default {
       this.$axios.post('api/upload/', formData)
         .then((res) => {
           console.log(res)
+          if(res.data.success===true){
+            console.log(res.data.success)
+            this.load()
+          }
         })
     },
     Download(params){
@@ -111,7 +114,19 @@ export default {
           .catch(()=>{
             this.$message.error("下载失败")
           })
+    },
+    DeleteFile(param){
+        this.$axios.post('/api/delfile/', {username: this.username, id: param})
+            .then((res) =>{
+              console.log(res)
+              if(res.data.success===true){
+                console.log(res.data.success)
+                this.load()
+              }
+
+            })
     }
+
   }}
 
 
