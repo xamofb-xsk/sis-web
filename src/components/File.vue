@@ -1,8 +1,8 @@
 <template>
   <el-container style="height:100%;" class="el-new-main">
-    <el-header><el-upload class="uploadfile" action="" :http-request='uploadFileMethod' :show-file-list="false" multiple>
-      <el-button class="custom-btn" size="small">上传</el-button>
-    </el-upload></el-header>
+<!--    <el-header><el-upload class="uploadfile" action="" :http-request='uploadFileMethod' :show-file-list="false" multiple style="float:right">-->
+<!--      <el-button class="custom-btn" size="small">上传</el-button>-->
+<!--    </el-upload></el-header>-->
    <el-main>
      <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
        <li v-for="(i, id) in id" class="infinite-list-item">
@@ -19,11 +19,13 @@
              {{'文件上传时间:' + createTime[id] }}
            </div>
          </el-card>
-
        </li>
      </ul>
    </el-main>
-    <el-footer style="width:200px;">
+    <el-footer style="width:200px;height:80px">
+      <el-upload class="uploadfile" action="" :http-request='uploadFileMethod' :show-file-list="false" multiple style="padding:3px 3px 10px 3px">
+        <el-button class="custom-btn" size="small">上传</el-button>
+      </el-upload>
       <el-progress :text-inside="false" :stroke-width="10" :percentage="use" :show-text="false"></el-progress>
       <el-breadcrumb separator="/" style="margin-top: 5px;font-size: 12px;">
         <el-breadcrumb-item>{{usesize}}</el-breadcrumb-item>

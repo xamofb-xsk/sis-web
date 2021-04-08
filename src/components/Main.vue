@@ -30,11 +30,28 @@
           <i class="el-icon-menu"></i>
           <span slot="title">课表</span>
         </el-menu-item>
-        <el-menu-item index="6" @click="tabChange('File')">
+
+
+        <el-submenu index="6">
+          <template slot="title"><i class="el-icon-s-order"></i>课程</template>
+          <el-menu-item-group>
+            <!--            <el-menu-item index="2-1" name="push" @click="tabChange('ActivityPublish')">活动发布</el-menu-item>-->
+            <el-menu-item index="6-2" name="Course" @click="tabChange('Course')">选修课</el-menu-item>
+            <el-menu-item index="6-3" name="SCourse" @click="tabChange('SCourse')">体育选修</el-menu-item>
+            <el-menu-item index="6-4" name="RCourse" @click="tabChange('RCourse')">重修</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+
+<!--        <el-menu-item index="6" @click="tabChange('Course')">-->
+<!--          <i class="el-icon-menu"></i>-->
+<!--          <span slot="title">课程</span>-->
+<!--        </el-menu-item>-->
+        <el-menu-item index="7" @click="tabChange('File')">
           <i class="el-icon-menu"></i>
           <span slot="title">文件</span>
         </el-menu-item>
-        <el-menu-item index="7" @click="tabChange('About_Me')">
+        <el-menu-item index="8" @click="tabChange('About_Me')">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>
@@ -62,6 +79,9 @@ import Litte from "./litteredbook";
 import Schedule from "./Schedule";
 import About_Me from "./About_Me"
 import File from "./File";
+import Course from "./Course";
+import SCourse from "./SCourse";
+import RCourse from "./RCourse";
 export default {
   components: {
     ActivityPublish,
@@ -73,7 +93,10 @@ export default {
     Litte,
     Schedule,
     About_Me,
-    File
+    File,
+    Course,
+    SCourse,
+    RCourse
     },
   name: "Main.vue",
   data() {
