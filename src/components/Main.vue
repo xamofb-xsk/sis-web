@@ -55,6 +55,10 @@
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
         </el-menu-item>
+        <el-menu-item index="9" @click="tabChange('Test')">
+          <i class="el-icon-user-solid"></i>
+          <span slot="title">测试</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-main style="height:100%;padding:0">
@@ -82,6 +86,7 @@ import File from "./File";
 import Course from "./Course";
 import SCourse from "./SCourse";
 import RCourse from "./RCourse";
+import Test from "./Test"
 export default {
   components: {
     ActivityPublish,
@@ -96,7 +101,8 @@ export default {
     File,
     Course,
     SCourse,
-    RCourse
+    RCourse,
+    Test
     },
   name: "Main.vue",
   data() {
