@@ -1,25 +1,47 @@
 <template>
   <el-container>
     <el-header>
-      <el-autocomplete
-        v-model="state"
-        :fetch-suggestions="querySearchAsync"
-        placeholder="请输入课程名称"
-        @select="handleSelect"
+      <el-table
+        v-show="show"
+        :data="select"
+        style="width: 100%"
       >
-        <i
-          class="el-icon-edit el-input__icon"
-          slot="suffix"
-          @click="handleIconClick"
+        <el-table-column
+          prop="stu_name"
+          label="姓名"
         >
-        </i>
-        <template slot-scope="{ item }">
-          <div class="name">{{ item.value }}</div>
-        </template>
-      </el-autocomplete>
+        </el-table-column>
+        <el-table-column
+          prop="stu_id"
+          label="学号"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="cname"
+          label="已选课程"
+        >
+
+        </el-table-column>
+      </el-table>
+
+      <!--    <el-autocomplete-->
+      <!--    v-model="state"-->
+      <!--    :fetch-suggestions="querySearchAsync"-->
+      <!--    placeholder="请输入课程名称"-->
+      <!--    @select="handleSelect"-->
+      <!--    >-->
+      <!--      <i-->
+      <!--      class="el-icon-edit el-input__icon"-->
+      <!--      slot="suffix"-->
+      <!--      @click="handleIconClick"-->
+      <!--    >-->
+      <!--    </i>-->
+      <!--      <template slot-scope="{ item }">-->
+      <!--        <div class="name">{{ item.value }}</div>-->
+      <!--      </template>-->
+      <!--    </el-autocomplete>-->
     </el-header>
     <el-main>
-      {{courses[0]['value']}}
       <el-table
         ref="multipleTable"
         :data="courses"
@@ -58,16 +80,16 @@
         <el-table-column
           label="上课时间"
           width="200"
-          prop="time"
-        >
-        </el-table-column>
-        <el-table-column
-          label="通过率"
-          width="180"
-          prop="past"
+          prop="course_time"
         >
         </el-table-column>
       </el-table>
+      <div>
+        <el-button @click="sumbit">提交</el-button>
+      </div>
+      <div>
+        {{select}}
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -82,37 +104,26 @@ export default {
       courses: [],
       state: '',
       timeout: null,
-      cname: [{
-        id: 1,
-        tname: 1,
-        course_type: 1,
-        local: 1
-      },]
+      select: [],
+      show: false,
     };
   },
   computed: {
     ...mapGetters(["loginUserInfo"])
   },
   methods: {
-    querySearchAsync(queryString, cb) {
-      var courses = this.courses;
-      var results = queryString ? courses.filter(this.createStateFilter(queryString)) : courses;
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(()=>{
-        cb(results);
-      }, 3000 * Math.random());
-    },
-    createStateFilter(queryString){
-      return (state) =>{
-        return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
-      };
-    },
     loadall(){
-      this.$axios.post('/api/course/', {username: this.username})
+      this.$axios.post('/api/rcourse/', {username: this.username})
         .then((res)=>{
           console.log(res)
           this.courses = res.data['course'];
+          // console.log(res.data['select'])
+          if(res.data['select'] !== null){
+            this.select = res.data['select']
+            // console.log(this.select)
+            this.show = true
 
+          }
         })
 
     },
@@ -133,6 +144,19 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    sumbit(){
+      const a = this.$refs.multipleTable.selection
+      if(a.length===0){
+        this.$message.error('请选择课程')
+      }else if(a[0]['value']===this.select[0]['cname']){
+          this.$message.error('该课程已选，请检查')
+      } else{
+        this.$axios.post('/api/select_rcourse/', {select:a, username: this.username})
+          .then((res)=>{
+            console.log(res)
+          })
+      }
     }
   },
   mounted() {
