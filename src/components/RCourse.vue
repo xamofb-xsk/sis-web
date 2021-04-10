@@ -87,9 +87,6 @@
       <div>
         <el-button @click="sumbit">提交</el-button>
       </div>
-      <div>
-        {{ select }}
-      </div>
     </el-main>
   </el-container>
 </template>
@@ -110,22 +107,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loginUserInfo"])
+    ...mapGetters(["loginUserInfo"], ['select_r_status'])
   },
   methods: {
     loadall() {
-      this.$axios.post('/api/rcourse/', {username: this.username})
-        .then((res) => {
-          console.log(res)
-          this.courses = res.data['course'];
-          // console.log(res.data['select'])
-          if (res.data['select'] !== null) {
-            this.select = res.data['select']
-            // console.log(this.select)
-            this.show = true
+      if(sessionStorage.getItem('setSelectRStatus')===true){
+        this.$axios.post('/api/rcourse/', {username: this.username})
+          .then((res) => {
+            console.log(res)
+            this.courses = res.data['course'];
+            // console.log(res.data['select'])
+            if (res.data['select'] !== null) {
+              this.select = res.data['select']
+              // console.log(this.select)
+              this.show = true
+            }
+          })
+      }else{
+        this.$message.error('未开启选课系统')
+      }
 
-          }
-        })
 
     },
     handleSelect(item) {

@@ -93,9 +93,6 @@
     <div>
       <el-button @click="sumbit">提交</el-button>
     </div>
-    <div>
-      {{select}}
-    </div>
   </el-main>
 </el-container>
 </template>
@@ -115,7 +112,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loginUserInfo"])
+    ...mapGetters(["loginUserInfo"], ['select_c_status'])
   },
   methods: {
     querySearchAsync(queryString, cb) {
@@ -132,7 +129,8 @@ export default {
       };
     },
     loadall(){
-      this.$axios.post('/api/course/', {username: this.username})
+      if(sessionStorage.getItem('setSelectCStatus')===true){
+        this.$axios.post('/api/course/', {username: this.username})
           .then((res)=>{
             console.log(res)
             this.courses = res.data['course'];
@@ -141,10 +139,11 @@ export default {
               this.select = res.data['select']
               console.log(this.select)
               this.show = true
-
             }
           })
-
+      }else{
+       this.$message.error('未开启选课系统')
+      }
     },
     handleSelect(item){
       console.log(item)
