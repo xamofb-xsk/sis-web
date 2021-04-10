@@ -17,10 +17,15 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-menu-item index="3">
-          <i class="el-icon-menu"></i>
-          <span slot="title">文件</span>
-        </el-menu-item>
+        <el-submenu index="3">
+          <template slot="title"><i class="el-icon-s-order"></i>课程</template>
+          <el-menu-item-group>
+            <el-menu-item index="3-1" name="Course_contral" @click="tabChange('Course_contral')">选修</el-menu-item>
+            <el-menu-item index="3-2" name="SCourse_contral" @click="tabChange('SCourse_contral')">体育选修</el-menu-item>
+            <el-menu-item index="3-3" name="RCourse_contral" @click="tabChange('RCourse_contral')">重修</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
         <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">我的</span>
@@ -45,6 +50,9 @@ import MyActivity from "./MyActivity";
 import NoticePublish from "./NoticePublish";
 import Notice from "./Notice"
 import Check from "./Check"
+import Course_contral from "./Course_contral"
+import RCourse_contral from "./RCourse_contral"
+import SCourse_contral from "./SCourse_contral"
 export default {
   components: {
     ActivityPublish,
@@ -53,6 +61,10 @@ export default {
     MyActivity,
     NoticePublish,
     Check,
+    Course_contral,
+    RCourse_contral,
+    SCourse_contral,
+
     },
   name: "Main.vue",
   data() {

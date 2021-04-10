@@ -88,7 +88,7 @@
         <el-button @click="sumbit">提交</el-button>
       </div>
       <div>
-        {{select}}
+        {{ select }}
       </div>
     </el-main>
   </el-container>
@@ -96,10 +96,11 @@
 
 <script>
 import {mapGetters} from 'vuex';
+
 export default {
   name: "RCourse",
   data() {
-    return{
+    return {
       username: JSON.parse(sessionStorage.getItem('loginUserInfo')),
       courses: [],
       state: '',
@@ -112,13 +113,13 @@ export default {
     ...mapGetters(["loginUserInfo"])
   },
   methods: {
-    loadall(){
+    loadall() {
       this.$axios.post('/api/rcourse/', {username: this.username})
-        .then((res)=>{
+        .then((res) => {
           console.log(res)
           this.courses = res.data['course'];
           // console.log(res.data['select'])
-          if(res.data['select'] !== null){
+          if (res.data['select'] !== null) {
             this.select = res.data['select']
             // console.log(this.select)
             this.show = true
@@ -127,10 +128,10 @@ export default {
         })
 
     },
-    handleSelect(item){
+    handleSelect(item) {
       console.log(item)
     },
-    handleIconClick(ev){
+    handleIconClick(ev) {
       console.log(ev);
     },
     toggleSelection(rows) {
@@ -145,15 +146,15 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    sumbit(){
+    sumbit() {
       const a = this.$refs.multipleTable.selection
-      if(a.length===0){
+      if (a.length === 0) {
         this.$message.error('请选择课程')
-      }else if(a[0]['value']===this.select[0]['cname']){
-          this.$message.error('该课程已选，请检查')
-      } else{
-        this.$axios.post('/api/select_rcourse/', {select:a, username: this.username})
-          .then((res)=>{
+      } else if (a[0]['value'] === this.select[0]['cname']) {
+        this.$message.error('该课程已选，请检查')
+      } else {
+        this.$axios.post('/api/select_rcourse/', {select: a, username: this.username})
+          .then((res) => {
             console.log(res)
           })
       }
@@ -167,6 +168,7 @@ export default {
 
 <style scoped>
 .my-autocomplete {
+
 li {
   line-height: normal;
   padding: 7px;
@@ -175,6 +177,7 @@ li {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 .addr {
   font-size: 12px;
   color: #b4b4b4;
@@ -183,6 +186,7 @@ li {
 .highlighted .addr {
   color: #ddd;
 }
+
 }
 }
 </style>
