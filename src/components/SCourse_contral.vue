@@ -72,7 +72,7 @@ export default {
   name: "Course_contral",
   data() {
     return{
-      username: JSON.parse(sessionStorage.getItem("loginUserInfo")),
+      username: JSON.parse(localStorage.getItem("loginUserInfo")),
       tableData: [],
       course: '',
       teacher: '',
@@ -132,11 +132,11 @@ export default {
     start_select() {
       if(this.select_status === true){
         this.$message.success('开启选课')
-        sessionStorage.setItem('setSelectCStatus', this.select_status)
+        localStorage.setItem('select_s_status', this.select_status)
         // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
       }else{
         this.$message.success('关闭选课')
-        sessionStorage.setItem('setSelectCStatus', this.select_status)
+        localStorage.setItem('select_s_status', this.select_status)
         // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
     }
     }

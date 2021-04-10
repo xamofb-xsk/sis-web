@@ -99,6 +99,7 @@ export default {
   data() {
     return {
       username: JSON.parse(sessionStorage.getItem('loginUserInfo')),
+      selected: JSON.parse(localStorage.getItem('select_r_status')),
       courses: [],
       state: '',
       timeout: null,
@@ -111,7 +112,7 @@ export default {
   },
   methods: {
     loadall() {
-      if(sessionStorage.getItem('setSelectRStatus')===true){
+      if(this.selected ===true){
         this.$axios.post('/api/rcourse/', {username: this.username})
           .then((res) => {
             console.log(res)

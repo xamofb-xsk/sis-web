@@ -98,6 +98,7 @@ export default {
   data() {
     return{
       username: JSON.parse(sessionStorage.getItem('loginUserInfo')),
+      selected: JSON.parse(localStorage.getItem('select_s_status')),
       courses: [],
       state: '',
       timeout: null,
@@ -110,7 +111,7 @@ export default {
   },
   methods: {
     loadall(){
-      if(sessionStorage.getItem('setSelectSStatus')===true){
+      if(this.selected  ===true){
         this.$axios.post('/api/scourse/', {username: this.username})
           .then((res)=>{
             console.log(res)

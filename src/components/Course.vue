@@ -104,6 +104,8 @@ export default {
   data() {
     return{
       username: JSON.parse(sessionStorage.getItem('loginUserInfo')),
+      selectd: JSON.parse(localStorage.getItem('select_c_status')),
+      // selectd: this.$store.getters.select_c_status('select_c_status'),
       courses: [],
       state: '',
       timeout: null,
@@ -112,7 +114,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loginUserInfo"], ['select_c_status'])
+    ...mapGetters(["loginUserInfo"]),
+    ...mapGetters(['select_c_status'])
   },
   methods: {
     querySearchAsync(queryString, cb) {
@@ -129,7 +132,10 @@ export default {
       };
     },
     loadall(){
-      if(sessionStorage.getItem('setSelectCStatus')===true){
+      // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
+      console.log('show'+this.selectd)
+      console.log(this.username)
+      if(this.selectd===true){
         this.$axios.post('/api/course/', {username: this.username})
           .then((res)=>{
             console.log(res)
@@ -143,6 +149,7 @@ export default {
           })
       }else{
        this.$message.error('未开启选课系统')
+        // this.$message.success(this.selectd)
       }
     },
     handleSelect(item){

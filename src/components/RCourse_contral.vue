@@ -132,13 +132,13 @@ export default {
     start_select() {
       if(this.select_status === true){
         this.$message.success('开启重修选课')
-        sessionStorage.setItem('setSelectRStatus', this.select_status)
+        localStorage.setItem('select_r_status', this.select_status)
 
         // this.$message.success( sessionStorage.getItem('setSelectRStatus'))
 
       }else{
         this.$message.success('关闭重修选课')
-        sessionStorage.setItem('setSelectRStatus', this.select_status)
+        localStorage.setItem('select_r_status', this.select_status)
       }
     }
   }

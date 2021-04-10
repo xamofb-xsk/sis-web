@@ -25,13 +25,17 @@ const store = new Vuex.Store({
       return state.loginUserInfo;
     },
     select_c_status: state =>{
-      return state.select_c_status
+      if(!state.select_c_status){
+        console.log("state中UserInfo为空", state.select_c_status);
+        return JSON.parse(sessionStorage.getItem("select_c_status"))
+      }
+      return state.select_c_status;
     },
     select_r_status: state =>{
-      return state.select_r_status
+      return state.select_r_status;
     },
     select_s_status: state =>{
-      return state.select_s_status
+      return state.select_s_status;
     },
   },
   mutations: {
@@ -42,15 +46,15 @@ const store = new Vuex.Store({
     },
     setSelectCStatus: (state, selected) =>{
       state.select_c_status = selected;
-      sessionStorage.setItem("select_c_status", JSON.stringify(selected))
+      localStorage.setItem("select_c_status", JSON.stringify(selected))
     },
     setSelectRStatus: (state, selected) =>{
       state.select_r_status = selected;
-      sessionStorage.setItem("select_r_status", JSON.stringify(selected))
+      localStorage.setItem("select_r_status", JSON.stringify(selected))
     },
     setSelectSStatus: (state, selected) =>{
       state.select_s_status = selected;
-      sessionStorage.setItem("select_s_status", JSON.stringify(selected))
+      localStorage.setItem("select_s_status", JSON.stringify(selected))
     },
   },
   actions: {}

@@ -36,6 +36,7 @@
         v-model="select_status"
         @change="start_select(select_status)"
         active-text=开始选课></el-switch>
+      <el-button @click="showse"></el-button>
     </el-header>
     <el-main>
       <el-table
@@ -78,6 +79,7 @@ export default {
   data() {
     return{
       username: JSON.parse(sessionStorage.getItem("loginUserInfo")),
+      selected: JSON.parse(localStorage.getItem("select_c_status")),
       tableData: [],
       course: '',
       teacher: '',
@@ -99,9 +101,16 @@ export default {
   },
   computed:{
     ...mapState(['select_c_status']),
-    ...mapGetters(["loginUserInfo"], ['select_c_status'])
+    ...mapGetters(["loginUserInfo"]),
+    ...mapGetters(['select_c_status'])
   },
   methods: {
+    showse(){
+      // this.$message.success(this.selected)
+      this.selected = JSON.parse(localStorage.getItem("select_c_status"))
+      console.log("show" + this.selected)
+    },
+
     submit() {
       const data = {
         username: this.username,
@@ -140,15 +149,31 @@ export default {
       },
     start_select() {
       if(this.select_status === true){
-        this.$message.success('开启选课')
-        sessionStorage.setItem('setSelectCStatus', this.select_status)
-        // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
+        // this.$message.success('开启选课')
+        console.log(this.select_status)
+        localStorage.setItem('select_c_status', this.select_status)
+        // this.$store.commit('setSelectCStatus', this.select_status)
+        // this.$store.commit('setSelectCStatus', this.select_status)
+        this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
+        console.log(this.select_status)
+        // this.$message.success(sessionStorage.getItem('select_c_status'))
+        // this.$store.getters.select_c_status.select_c_status
       }else{
-        this.$message.success('关闭选课')
-        sessionStorage.setItem('setSelectCStatus', this.select_status)
-        // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
+        // this.$message.success('关闭选课')
+        console.log(this.select_status)
+        // this.$store.commit('setSelectCStatus', false)
+        localStorage.setItem('select_c_status', this.select_status)
+        this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
+        // sessionStorage.setItem('select_c_status', this.select_status)
+        // this.$message.success(sessionStorage.getItem('select_c_status'))
     }
+    },
+    loadstatus() {
+      this.select_status = this.selected
     }
+  },
+  mounted() {
+    this.loadstatus()
   }
 }
 </script>
