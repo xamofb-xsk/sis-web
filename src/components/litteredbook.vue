@@ -7,19 +7,9 @@
             <span> {{ publicact[1] }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="report" label="社会实践报告字数" width="140">
-          <template slot-scope="scope">
-            <span> {{ report[1] }}</span>
-          </template>
-        </el-table-column>
         <el-table-column prop="chair" label="讲座章" width="140">
           <template slot-scope="scope">
             <span> {{ chair[1] }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="book" label="熟读经典数" width="140">
-          <template slot-scope="scope">
-            <span> {{ book[1] }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="sport" label="文体活动" width="140">
@@ -35,11 +25,6 @@
         <el-table-column prop="club" label="社团活动" width="140">
           <template slot-scope="scope">
             <span> {{ club[1] }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="friend" label="好朋友数" width="140">
-          <template slot-scope="scope">
-            <span> {{ friend[1] }}</span>
           </template>
         </el-table-column>
       </el-table>
