@@ -9,13 +9,13 @@
     <el-form-item label="活动时间" required>
       <el-col :span="11">
         <el-form-item prop="date1">
-          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 300px;" format="yyyy-MM-dd"></el-date-picker>
+          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 300px;"  value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
       </el-col>
       <el-col class="line" :span="3">&nbsp;</el-col>
       <el-col :span="11">
         <el-form-item prop="date2">
-            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;" format='HH:mm:ss'></el-time-picker>
+            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;" value-format='HH:mm:ss'></el-time-picker>
         </el-form-item>
       </el-col>
     </el-form-item>
@@ -95,7 +95,8 @@ name: "ActivityPublish",
   },
   methods: {
     submitForm(formName) {
-      this.$axios.post('/api/act_info/',{username:this.user, name:this.ruleForm.name, region:this.ruleForm.region, date1:this.ruleForm.date1.toString(),type:this.ruleForm.type, level:this.ruleForm.level, desc:this.ruleForm.desc})
+
+      this.$axios.post('/api/act_info/',{username:this.user, name:this.ruleForm.name, region:this.ruleForm.region, date1:this.ruleForm.date1, date2:this.ruleForm.date2 ,type:this.ruleForm.type, level:this.ruleForm.level, desc:this.ruleForm.desc})
         .then((res) => {
         console.log(res)
           if(res.data.code === 100){
