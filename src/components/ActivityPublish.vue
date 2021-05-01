@@ -15,7 +15,7 @@
       <el-col class="line" :span="3">&nbsp;</el-col>
       <el-col :span="11">
         <el-form-item prop="date2">
-            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;" value-format='HH:mm:ss'></el-time-picker>
+            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 300px;" value-format='HH:mm'></el-time-picker>
         </el-form-item>
       </el-col>
     </el-form-item>

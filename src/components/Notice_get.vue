@@ -28,18 +28,18 @@
       </el-form>
     </el-header>
     <el-main>
-      <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-        <li v-for="i in count" class="infinite-list-item">
+      <ul class="infinite-list" v-infinite-scroll="" style="overflow:auto">
+        <li v-for="(key, index) in count" class="infinite-list-item">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>{{'活动名称: ' + name[i - 1] }}</span>
+              <span>{{'活动名称: ' + notice[index]['actname'] }}</span>
 <!--              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>-->
             </div>
             <div class="text item">
-              {{'活动等级: ' + level[i - 1] }}
+              {{'活动等级: ' + notice[index]['level'] }}
             </div>
             <div class="text item">
-              {{'活动详情: \n' + info[i - 1] }}
+              {{'活动详情: \n' + notice[index]['info'] }}
             </div>
           </el-card>
         </li>
@@ -80,6 +80,7 @@ name: "Notice_get",
           label: '学院'
         }],
       value: '',
+      notice: []
     }
   },computed: {
     ...mapGetters(["loginUserInfo"])
@@ -87,17 +88,17 @@ name: "Notice_get",
   ,
   mounted () {
     this.userInfo = this.loginUserInfo
+    this.load()
   }
   ,
   methods:{
     load () {
-      this.$axios.post('/api/getnotice/', {username: this.username, level: this.value, user: this.form.user,  name: this.form.name})
+      this.$axios.post('/api/allnotice/', {username: this.username})
         .then((res) =>{
             console.log(res)
             if(res.data.code === 200){
-              this.name = res.data.name
-              this.level = res.data.level
-              this.info = res.data.info
+              // console.log(res.data.notice[0]['actname'])
+              this.notice = res.data.notice
               this.count = res.data.counts
               // 读取到的数据做成卡片形式发送到无限滚动
             }
@@ -110,23 +111,25 @@ name: "Notice_get",
     //   }
     // },
     submit(){
-      if(this.value===''){
-        alert('请选择级别')
-      }else{
+      // if(this.value===''){
+      //   alert('请选择级别')
+      // }else{
         this.$axios.post('/api/getnotice/', {username: this.username, level: this.value, user: this.form.user,  name: this.form.name})
           .then((res) =>{
             console.log(res)
             if(res.data.code === 200){
-              this.name = res.data.name
-              this.level = res.data.level
-              this.info = res.data.info
+              if(res.data.msg === "没有这个活动"){
+                alert('未能查找到此活动')
+              }
+              this.notice = res.data.notice
               this.count = res.data.counts
               // 读取到的数据做成卡片形式发送到无限滚动
             }
           })
       }
     },
-  }
+
+  // }
 }
 </script>
 
