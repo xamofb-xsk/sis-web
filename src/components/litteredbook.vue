@@ -4,27 +4,27 @@
       <el-table :data="tableData" >
         <el-table-column prop="publicact" label="社会实践" width="140">
           <template slot-scope="scope">
-            <span> {{ publicact[1] }}</span>
+            <span> {{ publicact[0] }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="chair" label="讲座章" width="140">
           <template slot-scope="scope">
-            <span> {{ chair[1] }}</span>
+            <span> {{ chair[0] }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="sport" label="文体活动" width="140">
           <template slot-scope="scope">
-            <span> {{ sport[1] }}</span>
+            <span> {{ sport[0] }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="volunteer" label="义工时" width="140">
           <template slot-scope="scope">
-            <span> {{ volunteer[1] }}</span>
+            <span> {{ volunteer[0] }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="club" label="社团活动" width="140">
           <template slot-scope="scope">
-            <span> {{ club[1] }}</span>
+            <span> {{ club[0] }}</span>
           </template>
         </el-table-column>
       </el-table>

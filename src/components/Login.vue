@@ -29,27 +29,11 @@ export default {
     return {
       username: '',
       password: '',
-      checkeduser: false,
-      checkedpass: false,
+
     }
   },
   methods:{
     onLogin(){
-      // this.$axios.post('/api/auth/',{username:this.username, password:this.password})
-      //   .then((res) => {
-      //   console.log(res)
-      //     if(res.data.code === 200){
-      //       sessionStorage.setItem("token", res.data.token);
-      //       this.$store.commit("setUserInfo", res.data.username)
-      //       // this.$store.state.token = res.data.token;
-      //       // this.$store.state.loginUserId = this.username;
-      //       this.$router.replace('/main')
-      //     }
-      //   }, () => {
-      //       alert("用户名或密码错误")
-      //     }
-      //
-      //   )
       login({
         username: this.username,
         password: this.password
