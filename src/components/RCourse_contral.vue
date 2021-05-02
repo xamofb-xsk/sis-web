@@ -2,6 +2,7 @@
   <el-container>
     <el-header>
       <el-button type="button" @click="dialogFormVisible = true">添加课程</el-button>
+      <el-button type="button" @click="delscourse">删除课程</el-button>
       <el-dialog title="添加课程" :visible.sync="dialogFormVisible" :destroy-on-close=true>
         <el-form :model="form" ref="form">
           <el-form-item  label="课程名称" :label-width="formLabelWidth">
@@ -34,31 +35,45 @@
     </el-header>
     <el-main>
       <el-table
-        :data="tableData"
+        ref="multipleTable"
+        :data="courses"
+        style="width: 100%"
+        @loading="loadall"
       >
         <el-table-column
-          :prop="id"
-          lable="id"
+          type="selection"
+          width="55"
         >
         </el-table-column>
         <el-table-column
-          :prop="course"
-          label="课程"
+          prop="id"
+          label="课程名称"
+          width="200"
         >
         </el-table-column>
         <el-table-column
-          :prop="teacher"
-          label="老师"
+          label="讲师"
+          width="200"
+          prop="tname"
         >
         </el-table-column>
         <el-table-column
-          :prop="time"
+          label="课时"
+          width="200"
+          prop="course_type"
+        >
+        </el-table-column>
+        <el-table-column
+          label="地点"
+          width="200"
+          prop="local"
+        >
+        </el-table-column>
+        <el-table-column
           label="上课时间"
+          width="200"
+          prop="course_time"
         >
-        </el-table-column>
-        <el-table-column
-          :prop="location"
-          label="上课地点">
         </el-table-column>
       </el-table>
     </el-main>
@@ -69,12 +84,14 @@
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
 export default {
-  name: "RCourse_contral",
+  name: "Course_contral",
   data() {
     return{
       username: JSON.parse(sessionStorage.getItem("loginUserInfo")),
+      selected: JSON.parse(localStorage.getItem("select_r_status")),
       tableData: [],
       course: '',
+      courses: [],
       teacher: '',
       time: '',
       id: '',
@@ -86,24 +103,31 @@ export default {
         teacher: '',
         time: '',
         localtion: '',
-        stu_name: '',
+        stu_num: '',
       },
       formLabelWidth: '120px'
     };
   },
   computed:{
     ...mapState(['select_r_status']),
-    ...mapGetters(["loginUserInfo"], ['select_r_status'])
+    ...mapGetters(["loginUserInfo"]),
+    ...mapGetters(['select_r_status'])
   },
   methods: {
+    loadall(){
+      this.$axios.post('/api/rcourse/', {username: this.username})
+        .then((res)=>{
+          console.log(res)
+          this.courses = res.data['course'];
+        })},
     submit() {
       const data = {
         username: this.username,
         cname: this.form.name,
         tname: this.form.teacher,
-        sname: this.form.stu_name,
+        snum: this.form.stu_num,
         ctime: this.form.time,
-        clocal: this.form.localtion
+        clocal: this.form.localtion,
       }
       this.$axios.post('/api/add_rcourse/', data)
         .then((res) =>{
@@ -113,7 +137,7 @@ export default {
             this.form.teacher = ''
             this.form.time = ''
             this.form.localtion = ''
-            this.form.stu_name = ''
+            this.form.stu_num = ''
             this.dialogFormVisible = false
             this.$message.success('添加成功')
           }else{
@@ -127,20 +151,40 @@ export default {
       this.form.teacher = ''
       this.form.time = ''
       this.form.localtion = ''
-      this.form.stu_name = ''
+      this.form.stu_num = ''
     },
     start_select() {
       if(this.select_status === true){
-        this.$message.success('开启重修选课')
+        this.$message.success('开启选课')
         localStorage.setItem('select_r_status', this.select_status)
-
-        // this.$message.success( sessionStorage.getItem('setSelectRStatus'))
-
+        // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
       }else{
-        this.$message.success('关闭重修选课')
+        this.$message.success('关闭选课')
         localStorage.setItem('select_r_status', this.select_status)
+        // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
       }
+    },
+    delscourse() {
+      const a = this.$refs.multipleTable.selection
+      console.log(a)
+      if (a.length === 0) {
+        this.$message.error('请选择课程')
+      }else{
+        this.$axios.post('/api/delrcourse/', {username: this.username, courseid: a[0]['id']})
+          .then((res)=>{
+            console.log(res)
+            alert('删除成功')
+            this.loadall()
+          })
+      }
+
+    },
+    loadstatus() {
+      this.select_status = this.selected
     }
+  },mounted(){
+    this.loadstatus()
+    this.loadall()
   }
 }
 </script>

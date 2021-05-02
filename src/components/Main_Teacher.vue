@@ -3,7 +3,7 @@
   <el-container style="border: 1px solid #eee; height:100%;">
     <el-aside width="200px" height="100%" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="['1', '3']" :unique-opened="true" >
-        <el-menu-item index="1" @click="tabChange('Notice')">
+        <el-menu-item index="1" @click="tabChange('About_Me')">
           <i class="el-icon-location"></i>
           <span slot="title">主页</span>
         </el-menu-item>
@@ -26,10 +26,10 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-menu-item index="4">
-          <i class="el-icon-user-solid"></i>
-          <span slot="title">我的</span>
-        </el-menu-item>
+<!--        <el-menu-item index="4">-->
+<!--          <i class="el-icon-user-solid"></i>-->
+<!--          <span slot="title">我的</span>-->
+<!--        </el-menu-item>-->
       </el-menu>
     </el-aside>
     <el-main style="height:100%">
@@ -53,6 +53,7 @@ import Check from "./Check"
 import Course_contral from "./Course_contral"
 import RCourse_contral from "./RCourse_contral"
 import SCourse_contral from "./SCourse_contral"
+import About_Me from "./About_Me"
 export default {
   components: {
     ActivityPublish,
@@ -64,6 +65,7 @@ export default {
     Course_contral,
     RCourse_contral,
     SCourse_contral,
+    About_Me
 
     },
   name: "Main.vue",
@@ -84,7 +86,6 @@ export default {
     this.userInfo = this.loginUserInfo;
   },
   methods: {
-
     // goActivityp() {
     //   this.$router.replace('/activity')
     // },
@@ -99,30 +100,5 @@ export default {
 </script>
 
 <style scoped>
-.el-header {
-  background-color: #B3C0D1;
-  color: #333;
-  line-height: 60px;
-}
 
-.el-aside {
-  color: #333;
-}
-#id{
-height:100%;
-}
-.black_title,.left_title{
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-.black_title{
-  background-color: #fff2cc;
-}
-
-.bottom_border{
-  background-color: #bdd7ee;
-  border: 1px solid #000;
-}
 </style>

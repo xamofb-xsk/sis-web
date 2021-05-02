@@ -4,7 +4,7 @@
       <el-form>
         <el-form-item :model="form" ref="form">
           <el-col :span="10" label="活动">
-            <el-input v-model="form.name" placeholder="活动/个人"></el-input>
+            <el-input v-model="form.name" placeholder="学号"></el-input>
           </el-col>
           <el-col :span="10" label="增加分数">
             <el-input  v-model="form.score" placeholder="增加的分数"></el-input>
@@ -46,18 +46,18 @@ name: "Check",
         label: '校义工'
       },
         {
-          value: '文体活动',
+          value: 'sport',
           label: '文体活动'
         },
         {
-          value: '讲座',
+          value: 'chair',
           label: '讲座'
         },{
-          value: '体育测试',
-          label: '体育测试'
-        },{
-          value: '社会实践',
+          value: 'publicact',
           label: '社会实践'
+        },{
+          value: 'club',
+          label: '社团活动'
         }],
 
     }
@@ -67,7 +67,9 @@ name: "Check",
       this.$axios.post('/api/actadd/', {username: this.username, actname: this.form.name, score: this.form.score, type: this.value})
       .then((res) =>{
         console.log(res)
-        if(res.data.code === 400){
+        if(res.data.code === 200){
+          alert('添加成功')
+        }else{
           alert('未查询到此活动')
         }
       })
