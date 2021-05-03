@@ -1,8 +1,7 @@
 <template>
   <el-container>
-    <el-header>
-      <el-table
-        v-show="show"
+    <el-header style="height: 100%">
+    <el-table
         :data="select"
         style="width: 100%"
       >
@@ -12,34 +11,16 @@
         >
         </el-table-column>
         <el-table-column
-          prop="stu"
+          prop="stu_id"
           label="学号"
         >
         </el-table-column>
         <el-table-column
-          prop="cname"
+          prop="value"
           label="中签课程"
         >
-
         </el-table-column>
       </el-table>
-
-      <!--    <el-autocomplete-->
-      <!--    v-model="state"-->
-      <!--    :fetch-suggestions="querySearchAsync"-->
-      <!--    placeholder="请输入课程名称"-->
-      <!--    @select="handleSelect"-->
-      <!--    >-->
-      <!--      <i-->
-      <!--      class="el-icon-edit el-input__icon"-->
-      <!--      slot="suffix"-->
-      <!--      @click="handleIconClick"-->
-      <!--    >-->
-      <!--    </i>-->
-      <!--      <template slot-scope="{ item }">-->
-      <!--        <div class="name">{{ item.value }}</div>-->
-      <!--      </template>-->
-      <!--    </el-autocomplete>-->
     </el-header>
     <el-main>
       <el-table
@@ -55,6 +36,12 @@
         </el-table-column>
         <el-table-column
           prop="id"
+          label="id"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="value"
           label="课程名称"
           width="200"
         >
@@ -63,12 +50,6 @@
           label="讲师"
           width="200"
           prop="tname"
-        >
-        </el-table-column>
-        <el-table-column
-          label="课时"
-          width="200"
-          prop="course_type"
         >
         </el-table-column>
         <el-table-column
@@ -116,7 +97,6 @@ export default {
           .then((res)=>{
             console.log(res)
             this.courses = res.data['course'];
-            console.log(res.data['select'])
             if(res.data['select'] !== null){
               this.select = res.data['select']
               console.log(this.select)
@@ -129,24 +109,6 @@ export default {
 
 
     },
-    handleSelect(item){
-      console.log(item)
-    },
-    handleIconClick(ev){
-      console.log(ev);
-    },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
     sumbit(){
       const a = this.$refs.multipleTable.selection
       if(a.length===0){
@@ -155,6 +117,11 @@ export default {
         this.$axios.post('/api/select_scourse/', {select:a, username: this.username})
           .then((res)=>{
             console.log(res)
+            if(res.data.msg==='已有选修'){
+              alert('已选体育课')
+            }else{
+              alert('提交成功')
+            }
           })
       }
     }

@@ -47,6 +47,12 @@
         </el-table-column>
         <el-table-column
           prop="id"
+          label="id"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="value"
           label="课程名称"
           width="200"
         >
@@ -55,12 +61,6 @@
           label="讲师"
           width="200"
           prop="tname"
-        >
-        </el-table-column>
-        <el-table-column
-          label="课时"
-          width="200"
-          prop="course_type"
         >
         </el-table-column>
         <el-table-column

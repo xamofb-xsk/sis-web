@@ -5,17 +5,6 @@ import Main from '@/components/Main'
 import Main_Teacher from "../components/Main_Teacher";
 
 Vue.use(Router)
-
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'Login',
-//       component: Login
-//     }
-//   ]
-// })
-
 var router = new Router({
   mode: 'history',
   routes: [
@@ -24,11 +13,6 @@ var router = new Router({
       name: 'Login',
       component: Login
     },
-    // {
-    //   path: '/activity',
-    //   name: 'ActivityPublish',
-    //   component: ActivityPublish
-    // },
     {
       path: '/main',
       name: 'main',
@@ -45,15 +29,15 @@ var router = new Router({
     ,
   ]
 })
-router.beforeEach((to, from, next)=> {
-  if (to.path === '/') {
-    sessionStorage.removeItem("token")
-  }
-  let token = sessionStorage.getItem("token");
-  if (!token && to.path !== "/"){
-    next({path: "/"});
-  }else{
-    next();
-  }
-});
+// router.beforeEach((to, from, next)=> {
+//   if (to.path === '/') {
+//     sessionStorage.removeItem("token")
+//   }
+//   let token = sessionStorage.getItem("token");
+//   if (!token && to.path !== "/"){
+//     next({path: "/"});
+//   }else{
+//     next();
+//   }
+// });
 export default router;

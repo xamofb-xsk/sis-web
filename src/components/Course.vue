@@ -1,8 +1,8 @@
 <template>
 <el-container>
-  <el-header>
+  <el-header style="height: 100%">
+    <!-- //:data="select" 绑定的数据变量-->
     <el-table
-      v-show="show"
       :data="select"
       style="width: 100%"
     >
@@ -23,23 +23,6 @@
 
       </el-table-column>
     </el-table>
-
-<!--    <el-autocomplete-->
-<!--    v-model="state"-->
-<!--    :fetch-suggestions="querySearchAsync"-->
-<!--    placeholder="请输入课程名称"-->
-<!--    @select="handleSelect"-->
-<!--    >-->
-<!--      <i-->
-<!--      class="el-icon-edit el-input__icon"-->
-<!--      slot="suffix"-->
-<!--      @click="handleIconClick"-->
-<!--    >-->
-<!--    </i>-->
-<!--      <template slot-scope="{ item }">-->
-<!--        <div class="name">{{ item.value }}</div>-->
-<!--      </template>-->
-<!--    </el-autocomplete>-->
   </el-header>
   <el-main>
     <el-table
@@ -55,6 +38,12 @@
       </el-table-column>
       <el-table-column
         prop="id"
+        label="id"
+        width="200"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="value"
         label="课程名称"
         width="200"
       >
@@ -66,12 +55,6 @@
       >
       </el-table-column>
       <el-table-column
-        label="课时"
-        width="200"
-        prop="course_type"
-      >
-      </el-table-column>
-      <el-table-column
         label="地点"
         width="200"
         prop="local"
@@ -80,13 +63,7 @@
       <el-table-column
         label="上课时间"
         width="200"
-        prop="time"
-      >
-      </el-table-column>
-      <el-table-column
-        label="通过率"
-        width="180"
-        prop="past"
+        prop="course_time"
       >
       </el-table-column>
     </el-table>
@@ -104,12 +81,18 @@ export default {
   data() {
     return{
       username: JSON.parse(sessionStorage.getItem('loginUserInfo')),
-      selectd: JSON.parse(localStorage.getItem('select_c_status')),
+      //sessionStorage的生命是当前窗口，localStorage的生命是永久，除非被清除
+      selectd: JSON.parse(localStorage.getItem('select_c_status')), //localStorage.getItem('select_c_status')用于获取select_c_status的值，
       // selectd: this.$store.getters.select_c_status('select_c_status'),
       courses: [],
       state: '',
       timeout: null,
-      select: [],
+      select: [{
+        'stu_name': '',
+        'stu': '',
+        'cname': ''
+      }
+      ],
       show: false,
     };
   },
@@ -118,69 +101,34 @@ export default {
     ...mapGetters(['select_c_status'])
   },
   methods: {
-    querySearchAsync(queryString, cb) {
-      var courses = this.courses;
-      var results = queryString ? courses.filter(this.createStateFilter(queryString)) : courses;
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(()=>{
-          cb(results);
-      }, 3000 * Math.random());
-    },
-    createStateFilter(queryString){
-      return (state) =>{
-        return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
-      };
-    },
     loadall(){
-      // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
-      console.log('show'+this.selectd)
-      console.log(this.username)
       if(this.selectd===true){
         this.$axios.post('/api/course/', {username: this.username})
           .then((res)=>{
-            console.log(res)
             this.courses = res.data['course'];
-            console.log(res.data['select'])
             if(res.data['select'] !== null){
               this.select = res.data['select']
-              console.log(this.select)
-              this.show = true
             }
           })
       }else{
        this.$message.error('未开启选课系统')
-        // this.$message.success(this.selectd)
       }
-    },
-    handleSelect(item){
-      console.log(item)
-    },
-    handleIconClick(ev){
-      console.log(ev);
-    },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
     },
     sumbit(){
-      const a = this.$refs.multipleTable.selection
+      const a = this.$refs.multipleTable.selection //将表单中的数据赋值到a中
       if(a.length===0){
-        this.$message.error('请选择课程')
+        this.$message.error('请选择课程') //弹出提示信息
       }else if(a.length>3){
-        this.$message.error('最多选择3门')
-        this.$refs.multipleTable.clearSelection();
+        this.$message.error('最多选择3门') //弹出提示信息
+        this.$refs.multipleTable.clearSelection();  //清除表单
       } else{
         this.$axios.post('/api/select/', {select:a, username: this.username})
             .then((res)=>{
-              console.log(res)
+              if(res.data.msg==='已有选修'){
+                alert(res.data.msg)
+              }else{
+                alert('提交成功')
+              }
             })
       }
     }
@@ -191,7 +139,7 @@ export default {
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .my-autocomplete {
     li {
       line-height: normal;

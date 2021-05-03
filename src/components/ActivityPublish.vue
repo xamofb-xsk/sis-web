@@ -1,10 +1,10 @@
 <template>
-  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="活动名称" prop="name">
-      <el-input v-model="ruleForm.name" style="width: 200px" name="name"></el-input>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm"> <!--//:model="ruleForm"带规则的表单 :rules="rules"规则 ref="ruleForm"用于获取表单中的变量-->
+      <el-form-item label="活动名称" prop="name"> <!--//prop="name" 绑定变量名-->
+        <el-input v-model="ruleForm.name" style="width: 200px" name="name"></el-input> <!--//v-model="ruleForm.name" 用于此单元格的规则-->
     </el-form-item>
-    <el-form-item label="活动地点" prop="region">
-      <el-input v-model="ruleForm.region" style="width: 200px"></el-input>
+    <el-form-item label="活动地点" prop="region"> <!--//prop="region" 绑定变量名-->
+      <el-input v-model="ruleForm.region" style="width: 200px"></el-input> <!--//v-model="ruleForm.region" 用于此单元格的规则-->
     </el-form-item>
     <el-form-item label="活动时间" required>
       <el-col :span="11">
@@ -20,8 +20,8 @@
       </el-col>
     </el-form-item>
     <el-form-item label="活动性质" prop="type">
-      <el-radio-group v-model="ruleForm.type">
-        <el-radio label="校义工" name="type"></el-radio>
+      <el-radio-group v-model="ruleForm.type"> <!--//单项选择器组-->
+        <el-radio label="校义工" name="type"></el-radio> <!--//单选内容-->
         <el-radio label="文体活动" name="type"></el-radio>
         <el-radio label="讲座" name="type"></el-radio>
         <el-radio label="体育测试" name="type"></el-radio>
@@ -39,8 +39,8 @@
       <el-input type="textarea" v-model="ruleForm.desc" style="width: 300px;"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button> <!-- //submitForm('ruleForm') 里面的'ruleForm' 是表单名-->
+      <el-button @click="resetForm('ruleForm')">重置</el-button> <!--//resetForm('ruleForm') 里面的'ruleForm' 是表单名-->
     </el-form-item>
   </el-form>
 </template>
@@ -62,9 +62,9 @@ name: "ActivityPublish",
         resource: '',
         desc: ''
       },
-      rules: {
+      rules: { //规则
         name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { required: true, message: '请输入活动名称', trigger: 'blur' }, //required 是否必须输入，message 提示
           { min: 2, max: 20, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         region: [

@@ -95,21 +95,14 @@ name: "Notice_get",
     load () {
       this.$axios.post('/api/allnotice/', {username: this.username})
         .then((res) =>{
-            console.log(res)
+
             if(res.data.code === 200){
-              // console.log(res.data.notice[0]['actname'])
               this.notice = res.data.notice
               this.count = res.data.counts
               // 读取到的数据做成卡片形式发送到无限滚动
             }
         })
         },
-    // load () {
-    //   if (this.count < this.counts){
-    //     this.count += 1
-    //     // alert(this.counts)
-    //   }
-    // },
     submit(){
       // if(this.value===''){
       //   alert('请选择级别')

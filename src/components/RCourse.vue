@@ -1,8 +1,7 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header style="height: 100%">
       <el-table
-        v-show="show"
         :data="select"
         style="width: 100%"
       >
@@ -23,23 +22,6 @@
 
         </el-table-column>
       </el-table>
-
-      <!--    <el-autocomplete-->
-      <!--    v-model="state"-->
-      <!--    :fetch-suggestions="querySearchAsync"-->
-      <!--    placeholder="请输入课程名称"-->
-      <!--    @select="handleSelect"-->
-      <!--    >-->
-      <!--      <i-->
-      <!--      class="el-icon-edit el-input__icon"-->
-      <!--      slot="suffix"-->
-      <!--      @click="handleIconClick"-->
-      <!--    >-->
-      <!--    </i>-->
-      <!--      <template slot-scope="{ item }">-->
-      <!--        <div class="name">{{ item.value }}</div>-->
-      <!--      </template>-->
-      <!--    </el-autocomplete>-->
     </el-header>
     <el-main>
       <el-table
@@ -55,6 +37,12 @@
         </el-table-column>
         <el-table-column
           prop="id"
+          label="id"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="value"
           label="课程名称"
           width="200"
         >
@@ -127,14 +115,6 @@ export default {
       }else{
         this.$message.error('未开启选课系统')
       }
-
-
-    },
-    handleSelect(item) {
-      console.log(item)
-    },
-    handleIconClick(ev) {
-      console.log(ev);
     },
     sumbit() {
       const a = this.$refs.multipleTable.selection
@@ -145,6 +125,7 @@ export default {
       } else {
         this.$axios.post('/api/select_rcourse/', {select: a, username: this.username})
           .then((res) => {
+            alert('提交成功')
             console.log(res)
           })
       }

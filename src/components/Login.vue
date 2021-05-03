@@ -23,7 +23,7 @@ import { login } from "../api/http.js"
 export default {
   name: 'login',
   computed:{
-    ...mapState(["token"], ["loginUserId"])
+    ...mapState(["loginUserId"])
   },
   data() {
     return {
@@ -40,12 +40,7 @@ export default {
       }).then((res) => {
           console.log(res)
             if(res.data.code === 200){
-              // let token;
-              // token = res.data.token.toString();
-              sessionStorage.setItem("token", res.data.token);
               this.$store.commit("setUserInfo", this.username)
-              // this.$store.state.token = res.data.token;
-              // this.$store.state.loginUserId = this.username;
               if(res.data.limit === 'Student'){
                 this.$router.replace('/main')
               }else if(res.data.limit === 'Teacher'){

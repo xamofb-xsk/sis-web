@@ -47,6 +47,12 @@
         </el-table-column>
         <el-table-column
           prop="id"
+          label="id"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="value"
           label="课程名称"
           width="200"
         >

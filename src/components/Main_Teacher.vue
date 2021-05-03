@@ -25,16 +25,10 @@
             <el-menu-item index="3-3" name="RCourse_contral" @click="tabChange('RCourse_contral')">重修</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-
-<!--        <el-menu-item index="4">-->
-<!--          <i class="el-icon-user-solid"></i>-->
-<!--          <span slot="title">我的</span>-->
-<!--        </el-menu-item>-->
       </el-menu>
     </el-aside>
     <el-main style="height:100%">
       <div :is="currentView">
-
       </div>
     </el-main>
   </el-container>
@@ -48,7 +42,6 @@ import ActivityPublish from "./ActivityPublish.vue"
 import ActivityInquire from "./ActivityInquire";
 import MyActivity from "./MyActivity";
 import NoticePublish from "./NoticePublish";
-import Notice from "./Notice"
 import Check from "./Check"
 import Course_contral from "./Course_contral"
 import RCourse_contral from "./RCourse_contral"
@@ -56,23 +49,22 @@ import SCourse_contral from "./SCourse_contral"
 import About_Me from "./About_Me"
 export default {
   components: {
-    ActivityPublish,
-    Notice,
-    ActivityInquire,
-    MyActivity,
-    NoticePublish,
-    Check,
-    Course_contral,
-    RCourse_contral,
-    SCourse_contral,
-    About_Me
+    ActivityPublish, //活动创建页
+    ActivityInquire,  //活动查询页
+    MyActivity,  //我的活动页
+    NoticePublish,  //通知创建页
+    Check,  //小红本分数添加页
+    Course_contral,  //选修教师端页
+    RCourse_contral,  //重修教师端页
+    SCourse_contral,  //体育课可教师端页
+    About_Me  //首页页
 
     },
   name: "Main.vue",
   data() {
     return {
       activeIndex: '1',
-      currentView: 'Notice',
+      currentView: 'About_Me',
       user: JSON.parse(sessionStorage.getItem("loginUserInfo")),
       data: '',
       tableData: [{
@@ -86,12 +78,6 @@ export default {
     this.userInfo = this.loginUserInfo;
   },
   methods: {
-    // goActivityp() {
-    //   this.$router.replace('/activity')
-    // },
-    // changvue(ActivityPublish){
-    //   this.currentView = ActivityPublish;
-    // },
     tabChange(tabItem) {
       this.currentView = tabItem;
     },

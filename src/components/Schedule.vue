@@ -6,17 +6,17 @@
         <table>
           <thead>
           <tr>
-            <th>时间</th>
+            <th>时间</th> <!--从classTableData.courses中获取长度以渲染周一至周日-->
             <th v-for="(weekNum, weekIndex) in classTableData.courses.length" :key="weekIndex"> {{'周' + digital2Chinese(weekIndex, 'week')}}</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody><!--从classTableData.lessons中获取长度以渲染一天课程的节数-->
           <tr v-for="(lesson, lessonIndex) in classTableData.lessons" :key="lessonIndex">
             <td>
               <p>{{'第' + digital2Chinese(lessonIndex+1) + "节"}}</p>
-              <p class="period">{{ lesson }}</p>
+              <p class="period">{{ lesson }}</p><!--渲染每节课的时间点-->
             </td>
-
+            <!--从classTableData.lessons中获取长度以渲染课程-->
             <td v-for="(course, courseIndex) in classTableData.courses" :key="courseIndex">
               {{classTableData.courses[courseIndex][lessonIndex] || '-'}}
             </td>
@@ -73,10 +73,6 @@ name: "Schedule",
         .then((res)=>{
           console.log(res)
           this.classTableData.courses = res.data['class_sc']
-          // this.class_one = res.data['class_one']
-          // console.log('class_one' + this.class_one)
-          // console.log(this.courses)
-          // this.course[1] = res.data['class_two']
         })
   },
     digital2Chinese(num, identifier) {

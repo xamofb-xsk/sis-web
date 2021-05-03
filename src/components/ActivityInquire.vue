@@ -2,11 +2,10 @@
 <template>
 <div >
   <el-header>
-    <el-form :model="form" ref="form">
-      <el-form-item>
-        <el-col :span="6" label="活动名称">
+      <el-form :model="form" ref="form"> <!--//:model="form"定义为表单， ref="form" 用于获取表单中的变量-->
+        <el-form-item> <!--// 类似于tr-->
+          <el-col :span="6" label="活动名称"> <!--//类似于td-->
           <el-input v-model="form.name" placeholder="活动名称">
-
           </el-input>
         </el-col>
         <el-col :span="6" label="发布人">
@@ -15,13 +14,14 @@
           </el-input>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="value" placeholder="请选择级别">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
+            <el-select v-model="value" placeholder="请选择级别"> <!--//一个带下拉选项的单元格-->
+  <!--            // 遍历所有选项，label是显示的内容，value是具体的值，选中后提交时会传值-->
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
@@ -32,26 +32,25 @@
   </el-header>
   <el-main>
     <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-      <li v-for="i in count" class="infinite-list-item">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>{{'活动名称: ' + name[i - 1] }}</span>
-<!--            <el-button style="float: right; padding: 3px 0"  type="text">操作按钮</el-button>-->
+      <li v-for="(i, index) in count" class="infinite-list-item">
+        <el-card class="box-card"><!--          //element-ui定义好的卡片形式的UI-->
+          <div slot="header" class="clearfix"><!--            //slot 内容分发插槽，这里是以卡片头内容-->
+            <span>{{'活动名称: ' + name[index] }}</span><!--            <el-button style="float: right; padding: 3px 0"  type="text">操作按钮</el-button>-->
           </div>
           <div class="text item">
-            {{'活动时间: ' + date[i - 1] }}
+            {{'活动时间: ' + date[index] }}
           </div>
           <div class="text item">
-            {{'活动等级: ' + level[i - 1] }}
+            {{'活动等级: ' + level[index] }}
           </div>
           <div class="text item">
-            {{'活动时间: ' + local[i - 1] }}
+            {{'活动时间: ' + local[index] }}
           </div>
           <div class="text item">
-            {{'活动类型: ' + type[i - 1] }}
+            {{'活动类型: ' + type[index] }}
           </div>
           <div class="text item">
-            {{'活动详情: \n' + info[i - 1] }}
+            {{'活动详情: \n' + info[index] }}
           </div>
         </el-card>
 
@@ -82,7 +81,7 @@ name: "ActivityInquire",
       user: '',
       data: '',
     },
-    options: [{
+    options: [{ // 选项
       value: '班级',
       label: '班级'
     },
@@ -116,10 +115,10 @@ name: "ActivityInquire",
         alert('请选择级别')
       }else{
         this.$axios.post('/api/iquirdata/', {username: this.username, level: this.value, user: this.form.user,  name: this.form.name})
-          .then((res) =>{
+          .then((res) =>{ //当网页请求完后执行
             console.log(res)
             if(res.data.code === 201){
-              this.count = res.data.counts
+              this.count = res.data.counts //赋值
               this.date = res.data.date
               this.name = res.data.name
               this.level = res.data.level

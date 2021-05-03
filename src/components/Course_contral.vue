@@ -1,9 +1,10 @@
 <template>
   <el-container>
     <el-header>
-      <el-button type="button" @click="dialogFormVisible = true">添加课程</el-button>
+      <el-button type="button" @click="dialogFormVisible = true">添加课程</el-button><!--//该按钮用于显示一个dialog，该dialog用于添加课程信息-->
       <el-button type="button" @click="delcourse">删除课程</el-button>
       <el-dialog title="添加课程" :visible.sync="dialogFormVisible" :destroy-on-close=true>
+        <!--一个dialog :visible.sync="dialogFormVisible" 是否可见，用dialogFormVisible变量进行控制， :destroy-on-close=true 关闭时销毁数据-->
         <el-form :model="form" ref="form">
           <el-form-item  label="课程名称" :label-width="formLabelWidth">
             <el-input v-model="form.name" auto-complete="off" ></el-input>
@@ -33,11 +34,11 @@
           <el-button type="primary" @click="submit">确定</el-button>
         </div>
       </el-dialog>
+      <!--一个滑动开关按钮 v-model="select_status"绑定的变量是select_status @change="start_select(select_status)"当状态改变时调用的方法-->
       <el-switch
         v-model="select_status"
         @change="start_select(select_status)"
         active-text=开始选课></el-switch>
-      <el-button @click="showse"></el-button>
     </el-header>
     <el-main>
       <el-table
@@ -53,6 +54,12 @@
         </el-table-column>
         <el-table-column
           prop="id"
+          label="id"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="value"
           label="课程名称"
           width="200"
         >
@@ -61,12 +68,6 @@
           label="讲师"
           width="200"
           prop="tname"
-        >
-        </el-table-column>
-        <el-table-column
-          label="课时"
-          width="200"
-          prop="value"
         >
         </el-table-column>
         <el-table-column
@@ -88,7 +89,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { mapState } from "vuex";
+import { mapState } from "vuex"; //辅助获取state的值
 export default {
   name: "Course_contral",
   data() {
@@ -121,19 +122,13 @@ export default {
     ...mapGetters(['select_c_status'])
   },
   methods: {
-    loadall(){
+    loadall(){ //获取数据
       this.$axios.post('/api/course/', {username: this.username})
         .then((res)=>{
           console.log(res)
           this.courses = res.data['course'];
         })},
-    showse(){
-      // this.$message.success(this.selected)
-      this.selected = JSON.parse(localStorage.getItem("select_c_status"))
-      console.log("show" + this.selected)
-    },
-
-    submit() {
+    submit() { //提交
       const data = {
         username: this.username,
         cname: this.form.name,
@@ -160,7 +155,7 @@ export default {
             }
           })
     },
-    cancle() {
+    cancle() { //取消按钮
       this.dialogFormVisible = false
         this.form.name = ''
         this.form.teacher = ''
@@ -169,32 +164,21 @@ export default {
         this.form.stu_num = ''
         this.form.score = ''
       },
-    start_select() {
+    start_select() { //开始选课滑动开关
       if(this.select_status === true){
         this.$message.success('开启选课')
-        console.log(this.select_status)
-        localStorage.setItem('select_c_status', this.select_status)
-        // this.$store.commit('setSelectCStatus', this.select_status)
-        // this.$store.commit('setSelectCStatus', this.select_status)
+        localStorage.setItem('select_c_status', this.select_status) //用于保存选课状态变量到本地
         this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
-        console.log(this.select_status)
-        // this.$message.success(sessionStorage.getItem('select_c_status'))
-        // this.$store.getters.select_c_status.select_c_status
       }else{
-        // this.$message.success('关闭选课')
-        console.log(this.select_status)
-        // this.$store.commit('setSelectCStatus', false)
-        localStorage.setItem('select_c_status', this.select_status)
+        localStorage.setItem('select_c_status', this.select_status) //用于保存选课状态变量到本地
         this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
-        // sessionStorage.setItem('select_c_status', this.select_status)
-        // this.$message.success(sessionStorage.getItem('select_c_status'))
     }
     },
-    loadstatus() {
+    loadstatus() { //获取选课开关状态
       this.select_status = this.selected
     },
-      delcourse() {
-      const a = this.$refs.multipleTable.selection
+      delcourse() { //用于删除课程
+      const a = this.$refs.multipleTable.selection //将表单的数据赋值到a
       console.log(a)
       if (a.length === 0) {
         this.$message.error('请选择课程')
