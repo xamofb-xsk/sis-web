@@ -41,7 +41,7 @@
             {{'活动时间: ' + date[index] }}
           </div>
           <div class="text item">
-            {{'活动等级: ' + level[index] }}
+            {{'活动等级: ' + level[index] + level[index + 1] }}
           </div>
           <div class="text item">
             {{'活动时间: ' + local[index] }}

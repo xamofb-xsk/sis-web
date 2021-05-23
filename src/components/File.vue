@@ -88,7 +88,8 @@ export default {
             if(res){
               const content = res.data; //将返回体中的data赋值到content
               const blob = new Blob([content]); //创建一个blob类型实例，实例的内容是content
-              const fileName = res.headers['filename']; //获取文件名，无法获取则下载失败
+              const fileName = decodeURI(res.headers['filename']); //获取文件名，无法获取则下载失败
+              console.log(decodeURI(fileName))
               if("download" in document.createElement("a")){ // 非IE下载
                 const elink = document.createElement("a");//创建一个链接
                 elink.download = fileName; //设置连接对应的文件

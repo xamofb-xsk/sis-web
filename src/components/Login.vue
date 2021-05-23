@@ -22,9 +22,9 @@ import { mapState } from "vuex"
 import { login } from "../api/http.js"
 export default {
   name: 'login',
-  computed:{
-    ...mapState(["loginUserId"])
-  },
+    computed:{
+      ...mapState(["loginUserId"])
+    },
   data() {
     return {
       username: '',

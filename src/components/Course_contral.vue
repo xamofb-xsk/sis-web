@@ -170,6 +170,7 @@ export default {
         localStorage.setItem('select_c_status', this.select_status) //用于保存选课状态变量到本地
         this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
       }else{
+        this.$message.error('关闭选课')
         localStorage.setItem('select_c_status', this.select_status) //用于保存选课状态变量到本地
         this.selectd = JSON.parse(localStorage.getItem("select_c_status"))
     }

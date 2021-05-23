@@ -7,19 +7,16 @@ import Main_Teacher from "../components/Main_Teacher";
 Vue.use(Router)
 var router = new Router({
   mode: 'history',
-  routes: [
+  routes: [ //路由表，里面定义了三个页面
     {
-      path: '/',
-      name: 'Login',
-      component: Login
+      path: '/', //路径
+      name: 'Login', //名称
+      component: Login //对应的页面
     },
     {
       path: '/main',
       name: 'main',
       component: Main,
-      meta: {
-        required: true
-      }
     },
     {
         path: '/manager',
@@ -29,15 +26,4 @@ var router = new Router({
     ,
   ]
 })
-// router.beforeEach((to, from, next)=> {
-//   if (to.path === '/') {
-//     sessionStorage.removeItem("token")
-//   }
-//   let token = sessionStorage.getItem("token");
-//   if (!token && to.path !== "/"){
-//     next({path: "/"});
-//   }else{
-//     next();
-//   }
-// });
 export default router;

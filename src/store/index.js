@@ -5,30 +5,16 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    loginUserInfo: "",
-    token: "",
-    menuList:[
-    ],
-    currentMenu: "首页",
-    newDeptFlag: false,
-    select_c_status: false,
-    select_r_status: false,
-    select_s_status: false,
+    loginUserInfo: "", //学号
+    select_c_status: false, //选修课状态
+    select_r_status: false,//选重修课状态
+    select_s_status: false,//选体育课状态
   },
-  getters: {
+  getters: {//获取值的方法
     loginUserInfo: state => {
-      if (!state.loginUserInfo) {
-        console.log("state中UserInfo为空", state.loginUserInfo);
-        return JSON.parse(sessionStorage.getItem("loginUserInfo"))
-      }
-      console.log("有值", state.loginUserInfo)
       return state.loginUserInfo;
     },
     select_c_status: state =>{
-      if(!state.select_c_status){
-        console.log("state中UserInfo为空", state.select_c_status);
-        return JSON.parse(sessionStorage.getItem("select_c_status"))
-      }
       return state.select_c_status;
     },
     select_r_status: state =>{
@@ -38,23 +24,23 @@ const store = new Vuex.Store({
       return state.select_s_status;
     },
   },
-  mutations: {
+  mutations: {//设置值的方法
     setUserInfo: (state, userInfo) => {
       //获取登陆用户信息
       state.loginUserInfo = userInfo;
-      sessionStorage.setItem("loginUserInfo", JSON.stringify(userInfo));
+      sessionStorage.setItem("loginUserInfo", JSON.stringify(userInfo));//以session保存
     },
     setSelectCStatus: (state, selected) =>{
       state.select_c_status = selected;
-      localStorage.setItem("select_c_status", JSON.stringify(selected))
+      localStorage.setItem("select_c_status", JSON.stringify(selected))//永久保存
     },
     setSelectRStatus: (state, selected) =>{
       state.select_r_status = selected;
-      localStorage.setItem("select_r_status", JSON.stringify(selected))
+      localStorage.setItem("select_r_status", JSON.stringify(selected))//永久保存
     },
     setSelectSStatus: (state, selected) =>{
       state.select_s_status = selected;
-      localStorage.setItem("select_s_status", JSON.stringify(selected))
+      localStorage.setItem("select_s_status", JSON.stringify(selected))//永久保存
     },
   },
   actions: {}

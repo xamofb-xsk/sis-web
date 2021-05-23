@@ -51,7 +51,7 @@ name: "MyActivity",
   },
   methods: {
     load (){
-      this.$axios.post('/api/myactivity/', {username: this.username})
+      this.$axios.post('/api/myactivity/', )
         .then((res) =>{
           console.log(res)
           if(res.data.code === 201){

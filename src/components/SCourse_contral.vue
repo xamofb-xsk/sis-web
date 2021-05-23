@@ -159,7 +159,7 @@ export default {
         localStorage.setItem('select_s_status', this.select_status)
         // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
       }else{
-        this.$message.success('关闭选课')
+        this.$message.error('关闭选课')
         localStorage.setItem('select_s_status', this.select_status)
         // this.$message.success(sessionStorage.getItem('setSelectCStatus'))
     }
